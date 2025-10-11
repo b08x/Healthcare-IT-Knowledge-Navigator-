@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Healthcare IT Knowledge Navigator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              // New vibrant, high-contrast theme (inspired by Tokyo Night)
+              'brand-bg': '#1a1b26',
+              'brand-surface': '#292e42',
+              'brand-text': '#a9b1d6',
+              'brand-subtle': '#787c99',
+
+              // Accent Palette
+              'brand-accent-purple': '#bb9af7',
+              'brand-accent-pink': '#f7768e', // Swapped for a more vibrant red/pink
+              'brand-accent-cyan': '#7dcfff',
+              'brand-accent-green': '#9ece6a',
+              'brand-accent-orange': '#ff9e64',
+              'brand-red': '#f7768e',
+
+              // Semantic mapping
+              'brand-accent': '#7dcfff', // Main accent is cyan
+              'critical': '#f7768e',   
+              'warning': '#ff9e64',    
+              'normal': '#9ece6a',     
+              'info': '#7dcfff',       
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.11.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-brand-bg text-brand-text">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
