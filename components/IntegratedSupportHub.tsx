@@ -336,7 +336,6 @@ const AiAssistantPanel = ({ selectedContext, onToggleContext, onUpdateDocTopic, 
 
 const IntegratedSupportHub = ({ role }: IntegratedSupportHubProps) => {
     // Desktop Sidebar State
-    const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
     const [isRightSidebarOpen, setRightSidebarOpen] = useState(true);
 
     // Mobile Sidebar/Modal State
@@ -403,18 +402,14 @@ const IntegratedSupportHub = ({ role }: IntegratedSupportHubProps) => {
             {/* Desktop Layout: 3-Column with Collapsible Sidebars */}
             <div className="hidden lg:flex h-full w-full gap-4">
                  {/* Left Sidebar */}
-                <div className={`flex-shrink-0 flex flex-col transition-all duration-300 ease-in-out ${isLeftSidebarOpen ? 'w-[400px]' : 'w-0'}`}>
-                    <Card className={`h-full w-full overflow-hidden flex flex-col ${!isLeftSidebarOpen && 'p-0 border-0'}`}>
-                        {isLeftSidebarOpen && <div className="overflow-y-auto custom-scrollbar h-full"><IncidentAssessment /></div>}
+                <div className="flex-shrink-0 flex flex-col w-[400px]">
+                    <Card className="h-full w-full overflow-hidden flex flex-col">
+                        <div className="overflow-y-auto custom-scrollbar h-full"><IncidentAssessment /></div>
                     </Card>
                 </div>
 
                 {/* Main Content and Toggles */}
                 <div className="flex-1 flex items-center min-w-0">
-                    <button onClick={() => setLeftSidebarOpen(!isLeftSidebarOpen)} title={isLeftSidebarOpen ? "Collapse Incident Library" : "Expand Incident Library"} className="h-24 w-6 bg-brand-surface hover:bg-brand-subtle/20 rounded-r-lg flex items-center justify-center -mr-4 z-10 flex-shrink-0">
-                        <ChevronLeftIcon className={`w-5 h-5 transition-transform duration-300 ${isLeftSidebarOpen ? '' : 'rotate-180'}`} />
-                    </button>
-                    
                     <div className="flex-1 h-full min-w-0">
                         <Card className="h-full flex flex-col">
                             {!activeWizard ? (
