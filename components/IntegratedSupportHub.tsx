@@ -7,7 +7,7 @@ import MiniArchitecture from './MiniArchitecture';
 import { DICOM_WIZARD_TREE, HL7_WIZARD_TREE, POWERSCRIBE_WIZARD_TREE } from '../constants';
 import { queryKnowledgeBase, generateDocumentation, getDiagnosticResponse, getExplanationFor } from '../services/geminiService';
 import { 
-    FileWarningIcon, ShieldAlertIcon, SendIcon, BotIcon, UserIcon, ClipboardIcon, CheckIcon, InfoIcon, MessageSquareIcon, CheckSquareIcon, SquareIcon, ChevronLeftIcon, ChevronRightIcon, LifeBuoyIcon, BrainCircuitIcon
+    FileWarningIcon, ShieldAlertIcon, SendIcon, BotIcon, UserIcon, ClipboardIcon, CheckIcon, InfoIcon, MessageSquareIcon, CheckSquareIcon, SquareIcon, ChevronLeftIcon, ChevronRightIcon, LifeBuoyIcon, BrainCircuitIcon, XIcon
 } from './common/Icons';
 import type { IconProps } from './common/Icons';
 
@@ -339,8 +339,8 @@ const IntegratedSupportHub = ({ role }: IntegratedSupportHubProps) => {
     const [isLeftSidebarOpen, setLeftSidebarOpen] = useState(true);
     const [isRightSidebarOpen, setRightSidebarOpen] = useState(true);
 
-    // Mobile Modal State
-    const [isIncidentModalOpen, setIncidentModalOpen] = useState(false);
+    // Mobile Sidebar/Modal State
+    const [isLeftMobileSidebarOpen, setLeftMobileSidebarOpen] = useState(false);
     const [isAssistantModalOpen, setAssistantModalOpen] = useState(false);
     
     // Diagnostic Wizard State
@@ -451,7 +451,7 @@ const IntegratedSupportHub = ({ role }: IntegratedSupportHubProps) => {
                 </div>
             </div>
 
-            {/* Mobile/Tablet Layout: Single Column with Modals */}
+            {/* Mobile/Tablet Layout: Single Column */}
             <div className="lg:hidden flex flex-col h-full gap-4">
                 <div className="flex-1 overflow-y-auto">
                     <Card className="h-full flex flex-col">
@@ -478,7 +478,7 @@ const IntegratedSupportHub = ({ role }: IntegratedSupportHubProps) => {
 
                 {/* Mobile Footer Toolbar */}
                 <div className="flex-shrink-0 grid grid-cols-2 gap-2 p-2 bg-brand-surface border-t border-brand-subtle/10">
-                    <button onClick={() => setIncidentModalOpen(true)} className="flex flex-col items-center justify-center p-2 rounded-lg hover:bg-brand-subtle/10 transition-colors">
+                    <button onClick={() => setLeftMobileSidebarOpen(true)} className="flex flex-col items-center justify-center p-2 rounded-lg hover:bg-brand-subtle/10 transition-colors">
                         <LifeBuoyIcon className="w-6 h-6 text-brand-accent-purple mb-1" />
                         <span className="text-xs font-medium text-brand-text">Incident Library</span>
                     </button>
@@ -489,14 +489,23 @@ const IntegratedSupportHub = ({ role }: IntegratedSupportHubProps) => {
                 </div>
             </div>
 
-            {/* Mobile Modals */}
-            {isIncidentModalOpen && (
-                <Modal title="Incident Assessment Library" onClose={() => setIncidentModalOpen(false)}>
-                    <div className="h-[75vh] overflow-y-auto custom-scrollbar">
-                        <IncidentAssessment />
+            {/* Mobile Left Sidebar for Incident Library */}
+            <div className={`lg:hidden fixed inset-0 z-40 transition-transform transform ${isLeftMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="absolute inset-0 bg-black/60" onClick={() => setLeftMobileSidebarOpen(false)}></div>
+                <div className="relative w-4/5 max-w-sm h-full bg-brand-surface p-4 border-r border-brand-bg flex flex-col">
+                    <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-xl font-bold text-brand-text">Incident Library</h2>
+                         <button onClick={() => setLeftMobileSidebarOpen(false)} className="p-2 rounded-full hover:bg-white/10 transition-colors">
+                            <XIcon className="w-5 h-5 text-brand-text opacity-70" />
+                        </button>
                     </div>
-                </Modal>
-            )}
+                    <div className="overflow-y-auto custom-scrollbar -mr-4 pr-4">
+                      <IncidentAssessment />
+                    </div>
+                </div>
+            </div>
+
+            {/* AI Assistant Modal (Mobile) */}
             {isAssistantModalOpen && (
                 <Modal title="AI Assistant" onClose={() => setAssistantModalOpen(false)}>
                      <div className="h-[75vh] overflow-y-auto custom-scrollbar">
